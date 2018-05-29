@@ -23,7 +23,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class TaskListActivity extends AppCompatActivity {
-    private static final String TAG = "TaskListActivity";
+    private static final String TAG = "ActianDB";
     private TaskTable mTable;
     private int mTitleSize;
     private ListView mTaskListView;
@@ -107,8 +107,10 @@ public class TaskListActivity extends AppCompatActivity {
     private void updateUI() {
         // taskList: a list of tasks to be displayed.
         ArrayList<TaskRecord> taskList = new ArrayList<>();
+
         // Populate taskList by iterating through the database
         // table.
+
         TaskCursor cursor = new TaskCursor(mTable);
         TaskRecordIterator iter = new TaskRecordIterator(cursor);
         while (iter.hasNext()) {

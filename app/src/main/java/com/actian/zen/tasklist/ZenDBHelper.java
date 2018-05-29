@@ -112,10 +112,12 @@ public class ZenDBHelper {
 
     // Extract Zen configuration file zendb.config from assets.
     // Initialize database engine library passing it the configuration file.
+
     public static void Initialize (Context context) {
         AssetManager assetManager = context.getAssets();
 
-        try {
+        try
+        {
             File filesDir = context.getFilesDir();
             File outfilepath = new File(filesDir, "zendb.config");
             if (! outfilepath.exists()) {

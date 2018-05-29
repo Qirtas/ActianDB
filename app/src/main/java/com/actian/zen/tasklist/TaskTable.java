@@ -23,6 +23,7 @@ import java.util.NoSuchElementException;
 public class TaskTable {
     BtrieveClient client;
     String mTablePath;
+public String TAG = "ActianDB";
 
     //  Task records have two fields
     //  1) ID - a unique (auto-increment) number
@@ -131,7 +132,9 @@ public class TaskTable {
 /**
  * The TaskCursor class a cursor or handle to the TaskTable.
  */
-class TaskCursor {
+
+class TaskCursor
+{
     private BtrieveFile m_handle;
     private TaskTable m_table;
 
@@ -166,9 +169,10 @@ class TaskCursor {
 
     // Retrieve the first record using the specified index.
     // index may be Btrieve.INDEX_NONE.
+
     public TaskRecord retrieveFirst(Btrieve.Index index) {
         byte[] rawbuf = new byte[TaskTable.RECORD_SIZE];
-        int count = m_handle.RecordRetrieveFirst(index, rawbuf);
+        int count = m_handle.RecordRetrieveFirst(index , rawbuf);
         if (count < 0) {
             Btrieve.StatusCode status = m_handle.GetLastStatusCode();
             if (status == Btrieve.StatusCode.STATUS_CODE_END_OF_FILE) {
@@ -195,12 +199,15 @@ class TaskCursor {
     }
 
     // Insert a new TaskRecord object into the task table.
-    public void insert(TaskRecord task) {
+    public void insert(TaskRecord task)
+    {
         // Note: The id field should have been initialized to 0.
         // The database will assign a value.
         byte[] rawbuf =  m_table.putRecord(task);
         Btrieve.StatusCode status = m_handle.RecordCreate(rawbuf);
-        if (status != Btrieve.StatusCode.STATUS_CODE_NO_ERROR) {
+
+        if (status != Btrieve.StatusCode.STATUS_CODE_NO_ERROR)
+        {
             ZenDBHelper.raise_DbException(status);
         }
     }
@@ -223,7 +230,9 @@ class TaskCursor {
 /**
  * Helper class to facilitate scanning the TaskTable.
  */
-class TaskRecordIterator implements Iterator<TaskRecord> {
+
+class TaskRecordIterator implements Iterator<TaskRecord>
+{
 
     private boolean seekfirst;
     private TaskRecord m_prefetch;
